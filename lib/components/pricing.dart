@@ -28,19 +28,21 @@ class _PricingState extends State<Pricing> {
         ]),
         // Monthly / Annual toggle
         div(classes: 'pricing-toggle-row reveal', [
-          button(
-            classes: 'billing-tab${!_isAnnual ? ' billing-tab--active' : ''}',
-            onClick: () => setState(() => _isAnnual = false),
-            [.text('Monthly')],
-          ),
-          button(
-            classes: 'billing-tab${_isAnnual ? ' billing-tab--active' : ''}',
-            onClick: () => setState(() => _isAnnual = true),
-            [
-              .text('Annual '),
-              span(classes: 'save-badge', [.text('Save 7%')]),
-            ],
-          ),
+          div(classes: 'pricing-toggle-pill', [
+            button(
+              classes: 'billing-tab${!_isAnnual ? ' billing-tab--active' : ''}',
+              onClick: () => setState(() => _isAnnual = false),
+              [.text('Monthly')],
+            ),
+            button(
+              classes: 'billing-tab${_isAnnual ? ' billing-tab--active' : ''}',
+              onClick: () => setState(() => _isAnnual = true),
+              [
+                .text('Annual '),
+                span(classes: 'save-badge', [.text('SAVE 7%')]),
+              ],
+            ),
+          ]),
         ]),
         // Cards
         div(classes: 'pricing-cards', [
@@ -53,10 +55,9 @@ class _PricingState extends State<Pricing> {
               span(classes: 'pricing-period', [.text('/forever')]),
             ]),
             ul(classes: 'pricing-features', [
-              _feature('5 invoices per month'),
+              _feature('5 receipts per month'),
               _feature('1 PDF layout (Classic)'),
-              _feature('AI-powered parsing'),
-              _feature('WhatsApp delivery'),
+              _feature('Clean PDF receipts'),
             ]),
             a(
               href: AppLinks.whatsapp,
@@ -79,11 +80,8 @@ class _PricingState extends State<Pricing> {
             ul(classes: 'pricing-features', [
               _feature('Unlimited invoices'),
               _feature('All 4 PDF layouts'),
-              _feature('Custom business logo'),
               _feature('Team member access'),
-              _feature('Bank details on receipts'),
-              _feature('Change currency anytime'),
-              _feature('Priority support'),
+              _feature('Sales stats (weekly, monthly, yearly)'),
             ]),
             a(
               href: AppLinks.whatsapp,

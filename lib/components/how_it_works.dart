@@ -62,7 +62,7 @@ class HowItWorks extends StatelessComponent {
             '02',
             'Tell Remi the Sale',
             'Type what you sold in plain English — '
-                '"Sold 5 jerseys to Lagos FC for ₦75,000". '
+                '"Sold 5 T-shirts to John for \$150". '
                 'Or upload a photo of a handwritten note. Remi reads both.',
             'Receipt.webm',
             true,

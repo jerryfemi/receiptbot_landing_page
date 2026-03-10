@@ -18,11 +18,11 @@ class Contact extends StatelessComponent {
         ]),
         div(classes: 'contact-cards', [
           _card(
-            '💬',
-            'WhatsApp Support',
-            'Message us directly on WhatsApp. Usually reply within a few hours.',
-            AppLinks.whatsapp,
-            'Chat with Support',
+            '🐦',
+            'Twitter / X',
+            'Reach us on X (Twitter). We respond fast — DMs are open.',
+            AppLinks.twitter,
+            'Message on X',
             true,
           ),
           _card(

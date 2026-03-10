@@ -28,7 +28,7 @@ class About extends StatelessComponent {
           div(classes: 'about-values', [
             _value('🧾', 'No paper trail left behind'),
             _value('📲', 'Lives in WhatsApp — no new app'),
-            _value('🌍', 'Built for Africa & the world'),
+            _value('🌍', 'Professional records, zero friction'),
           ]),
         ]),
         div(classes: 'about-visual reveal', [

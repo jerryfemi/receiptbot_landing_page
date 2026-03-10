@@ -26,5 +26,6 @@ class AppPricing {
 class AppLinks {
   static const whatsapp = 'https://wa.me/2348021146844';
   static const waitlistEmail = 'mailto:hello@remibot.app';
-  static const supportEmail = 'remireceiptbot@gmail.com';
+  static const supportEmail = 'mailto:remireceiptbot@gmail.com';
+  static const twitter = 'https://x.com/receiptbot_remi';
 }

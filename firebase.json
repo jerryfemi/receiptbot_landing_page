@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "target": "landingpage",
     "public": "build/jaspr",
     "ignore": [
       "firebase.json",

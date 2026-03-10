@@ -16,17 +16,17 @@ class CounterState extends State<Counter> {
     return div([
       div(classes: 'counter', [
         button(
-          [.text('-')],
           onClick: () {
             setState(() => count--);
           },
+          [.text('-')],
         ),
         span([.text('$count')]),
         button(
-          [.text('+')],
           onClick: () {
             setState(() => count++);
           },
+          [.text('+')],
         ),
       ]),
     ]);

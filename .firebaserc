@@ -1,5 +1,15 @@
 {
-  "projects": {},
-  "targets": {},
+  "projects": {
+    "default": "invoicemaker-b3876"
+  },
+  "targets": {
+    "invoicemaker-b3876": {
+      "hosting": {
+        "landingpage": [
+          "remireceiptbot"
+        ]
+      }
+    }
+  },
   "etags": {}
 }

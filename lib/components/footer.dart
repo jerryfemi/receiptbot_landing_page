@@ -55,7 +55,7 @@ class Footer extends StatelessComponent {
       div(classes: 'footer-bottom', [
         div(classes: 'container footer-bottom-inner', [
           p([.text('© 2025 Remi. All rights reserved.')]),
-          p([.text('Made with ❤️ for Africa & the world')]),
+          p([.text('Remi, professional receipts for the global entrepreneur.')]),
         ]),
       ]),
     ]);
