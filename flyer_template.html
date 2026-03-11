@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remi Promo Flyer</title>
+    <!-- Tailwind via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bgDark: '#0A0F1E',
+                        bgCard: '#111827',
+                        accent: '#00D4A1',
+                        textPrimary: '#F1F5F9',
+                        textSecondary: '#94A3B8',
+                        textMuted: '#64748B',
+                        borderStroke: 'rgba(255,255,255,0.08)',
+                    },
+                    fontFamily: {
+                        heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Essential Remi Utilities */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0F1E;
+            color: #F1F5F9;
+            /* Creating the exact 1080x1080 square for social */
+            width: 1080px;
+            height: 1080px;
+            position: relative;
+            overflow: hidden;
+            background-image: radial-gradient(ellipse at 50% 0%, rgba(0,212,161,0.15) 0%, transparent 60%);
+        }
+
+        .glass-card {
+            background: #111827;
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+        }
+
+        .accent-glow {
+            color: #00D4A1;
+            text-shadow: 0 0 20px rgba(0, 212, 161, 0.4);
+        }
+
+        /* The placeholder dashed boxes for Figma */
+        .image-placeholder {
+            border: 2px dashed rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.02);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748B;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body class="flex flex-col p-[60px] justify-between">
+
+    <!-- Top Logo & Headline -->
+    <header class="flex flex-col items-center text-center mt-10">
+        <!-- Logo Text (Replace with real logo in Figma) -->
+        <h2 class="font-heading font-extrabold text-[32px] tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 mb-8">
+            Remi
+        </h2>
+        
+        <h1 class="font-heading font-extrabold text-[64px] leading-[1.1] tracking-tight max-w-[800px]">
+            Turn WhatsApp messages into <span class="accent-glow">professional receipts.</span>
+        </h1>
+    </header>
+
+    <!-- Main Visual Storyboard Area (Replaced in Figma) -->
+    <main class="flex-1 flex items-center justify-center gap-6 mt-16 mb-16 relative">
+        
+        <!-- Left: Chat Screenshot Placeholder -->
+        <div class="image-placeholder w-[320px] h-[400px] shadow-2xl relative z-10 transform -rotate-3 hover:rotate-0 transition-transform">
+            DROP 'HELLO.PNG' HERE
+        </div>
+
+        <!-- Center: Arrow Indicator -->
+        <div class="flex flex-col items-center justify-center px-4 relative z-0">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#00D4A1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="opacity-80">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+            </svg>
+        </div>
+
+        <!-- Right: Receipt Screenshot Placeholder -->
+        <div class="image-placeholder w-[320px] h-[400px] shadow-2xl relative z-10 transform rotate-3 hover:rotate-0 transition-transform bg-white/5">
+            DROP 'RECEIPT.PNG' HERE
+        </div>
+
+    </main>
+
+    <!-- Bottom: Product Features -->
+    <footer class="grid grid-cols-3 gap-6 mb-8">
+        <!-- Feature 1 -->
+        <div class="glass-card rounded-[20px] p-6 text-center shadow-lg">
+            <h3 class="font-heading font-bold text-[22px] text-white mb-2">Instant Receipts in Secs</h3>
+            <p class="text-textSecondary text-[15px] leading-relaxed">No apps, no log-ins. Generate polished PDFs directly from your WhatsApp chat.</p>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="glass-card rounded-[20px] p-6 text-center shadow-lg">
+            <h3 class="font-heading font-bold text-[22px] text-white mb-2">Track Sales Stats</h3>
+            <p class="text-textSecondary text-[15px] leading-relaxed">Automatically view weekly, monthly, and yearly revenue without opening a spreadsheet.</p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="glass-card rounded-[20px] p-6 text-center shadow-lg">
+            <h3 class="font-heading font-bold text-[22px] text-white mb-2">Team Member Access</h3>
+            <p class="text-textSecondary text-[15px] leading-relaxed">Let your staff generate receipts for customers, all synced to one business account.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

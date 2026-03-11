@@ -45,8 +45,6 @@ class Hero extends StatelessComponent {
             _stat('5', 'Free invoices/month'),
             div(classes: 'stat-divider', []),
             _stat('4', 'PDF layouts'),
-            div(classes: 'stat-divider', []),
-            _stat('AI', 'Powered by Gemini'),
           ]),
         ]),
         div(classes: 'hero-visual', [

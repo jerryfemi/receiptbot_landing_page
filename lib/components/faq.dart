@@ -14,7 +14,7 @@ class _FaqState extends State<Faq> {
   static const _items = [
     (
       q: 'What is Remi?',
-      a: 'Remi is an AI-powered WhatsApp bot that turns your text messages and receipt photos into professional PDF receipts & invoices — sent right back to you in chat.',
+      a: 'Remi is a WhatsApp bot that turns your text messages and receipt photos into professional PDF receipts & invoices — sent right back to you in chat.',
     ),
     (
       q: 'How do I start using Remi?',

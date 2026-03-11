@@ -1,6 +1,7 @@
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import '../constants/theme.dart';
+import 'region_detector.dart' if (dart.library.js_interop) 'region_detector_web.dart';
 
 class Pricing extends StatefulComponent {
   const Pricing({super.key});
@@ -11,9 +12,39 @@ class Pricing extends StatefulComponent {
 
 class _PricingState extends State<Pricing> {
   bool _isAnnual = false;
+  late final bool _isAfrican;
 
-  String get _price => _isAnnual ? r'$200' : r'$18';
+  @override
+  void initState() {
+    super.initState();
+    _isAfrican = isAfricanRegion();
+  }
+
+  // Pricing based on region
+  String get _price {
+    if (_isAfrican) {
+      return _isAnnual ? '₦35,000' : '₦3,500';
+    }
+    return _isAnnual ? r'$200' : r'$18';
+  }
+
   String get _period => _isAnnual ? '/year' : '/month';
+
+  String get _freePrice => _isAfrican ? '₦0' : r'$0';
+
+  String get _annualEquiv {
+    if (_isAfrican) {
+      return 'Billed as ₦35,000/year';
+    }
+    return r'Billed as $200/year';
+  }
+
+  String get _monthlyEquiv {
+    if (_isAfrican) {
+      return 'or ₦35,000/year — save ₦7,000';
+    }
+    return r'or $200/year — save $16';
+  }
 
   @override
   Component build(BuildContext context) {
@@ -51,7 +82,7 @@ class _PricingState extends State<Pricing> {
             h3(classes: 'pricing-plan', [.text('Free')]),
             p(classes: 'pricing-tagline', [.text('For individuals just getting started')]),
             div(classes: 'pricing-price-row', [
-              span(classes: 'pricing-price', [.text(r'$0')]),
+              span(classes: 'pricing-price', [.text(_freePrice)]),
               span(classes: 'pricing-period', [.text('/forever')]),
             ]),
             ul(classes: 'pricing-features', [
@@ -75,8 +106,8 @@ class _PricingState extends State<Pricing> {
               span(classes: 'pricing-price', [.text(_price)]),
               span(classes: 'pricing-period', [.text(_period)]),
             ]),
-            if (_isAnnual) p(classes: 'pricing-equiv', [.text('Billed as \$200/year')]),
-            if (!_isAnnual) p(classes: 'pricing-equiv', [.text('or \$200/year — save \$16')]),
+            if (_isAnnual) p(classes: 'pricing-equiv', [.text(_annualEquiv)]),
+            if (!_isAnnual) p(classes: 'pricing-equiv', [.text(_monthlyEquiv)]),
             ul(classes: 'pricing-features', [
               _feature('Unlimited invoices'),
               _feature('All 4 PDF layouts'),
