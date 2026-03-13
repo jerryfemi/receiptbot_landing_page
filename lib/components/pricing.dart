@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import '../constants/theme.dart';
@@ -14,18 +16,58 @@ class _PricingState extends State<Pricing> {
   bool _isAnnual = false;
   late final bool _isAfrican;
 
+  // Dynamic pricing state
+  bool _isLoading = true;
+  bool _isEarlyAccess = false;
+  int _spotsLeft = 0;
+
+  // Default fallbacks (Standard pricing)
+  int _monthlyPriceNgn = 3500;
+  int _annualPriceNgn = 35000;
+  int _monthlyPriceUsd = 18;
+  int _annualPriceUsd = 200;
+
   @override
   void initState() {
     super.initState();
     _isAfrican = isAfricanRegion();
+    _fetchPricing();
+  }
+
+  Future<void> _fetchPricing() async {
+    try {
+      final response = await http.get(Uri.parse('https://pennywise-bot-1077178245946.us-central1.run.app/api/pricing'));
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        if (!mounted) return;
+        setState(() {
+          _isEarlyAccess = data['isEarlyAccessActive'] ?? false;
+          _spotsLeft = data['spotsLeft'] ?? 0;
+          _monthlyPriceNgn = data['monthlyPriceNgn'] ?? 3500;
+          _annualPriceNgn = data['annualPriceNgn'] ?? 35000;
+          _monthlyPriceUsd = data['monthlyPriceUsd'] ?? 18;
+          _annualPriceUsd = data['annualPriceUsd'] ?? 200;
+          _isLoading = false;
+        });
+      } else {
+        if (!mounted) return;
+        setState(() => _isLoading = false);
+      }
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _isLoading = false);
+    }
   }
 
   // Pricing based on region
   String get _price {
+    // Show empty string or loading indicator if loading
+    if (_isLoading) return '...';
     if (_isAfrican) {
-      return _isAnnual ? '₦35,000' : '₦3,500';
+      return _isAnnual ? '₦$_annualPriceNgn' : '₦$_monthlyPriceNgn';
     }
-    return _isAnnual ? r'$200' : r'$18';
+    return _isAnnual ? '\$$_annualPriceUsd' : '\$$_monthlyPriceUsd';
   }
 
   String get _period => _isAnnual ? '/year' : '/month';
@@ -34,16 +76,21 @@ class _PricingState extends State<Pricing> {
 
   String get _annualEquiv {
     if (_isAfrican) {
-      return 'Billed as ₦35,000/year';
+      return 'Billed as ₦$_annualPriceNgn/year';
     }
-    return r'Billed as $200/year';
+    return 'Billed as \$$_annualPriceUsd/year';
   }
 
   String get _monthlyEquiv {
     if (_isAfrican) {
-      return 'or ₦35,000/year — save ₦7,000';
+      final savings = (_monthlyPriceNgn * 10) - _annualPriceNgn;
+      // If savings is 0 (like 2000 * 10 - 20000), you might just want to show the 'or X/year' part
+      if (savings <= 0) return 'or ₦$_annualPriceNgn/year';
+      return 'or ₦${_monthlyPriceNgn * 10}/year — save ₦$savings';
     }
-    return r'or $200/year — save $16';
+    final savings = (_monthlyPriceUsd * 10) - _annualPriceUsd;
+    if (savings <= 0) return 'or \$$_annualPriceUsd/year';
+    return 'or \$${_monthlyPriceUsd * 10}/year — save \$$savings';
   }
 
   @override
@@ -99,7 +146,17 @@ class _PricingState extends State<Pricing> {
           ]),
           // Pro card
           div(classes: 'pricing-card pricing-card--primary reveal', [
-            div(classes: 'pricing-tag', [.text('Most Popular')]),
+            if (_isEarlyAccess && _spotsLeft > 0)
+              div(
+                classes: 'early-access-banner',
+                attributes: {
+                  'style':
+                      'position: absolute; top: -16px; left: 50%; transform: translateX(-50%); padding: 6px 16px; border-radius: 100px; background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); color: white; font-weight: 700; font-size: 13px; text-align: center; white-space: nowrap;',
+                },
+                [.text('🔥 Early Access: Only $_spotsLeft spots remaining!')],
+              )
+            else
+              div(classes: 'pricing-tag', [.text('Most Popular')]),
             h3(classes: 'pricing-plan', [.text('Pro')]),
             p(classes: 'pricing-tagline', [.text('For growing businesses')]),
             div(classes: 'pricing-price-row', [
