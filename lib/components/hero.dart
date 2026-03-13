@@ -32,6 +32,7 @@ class Hero extends StatelessComponent {
             a(
               href: AppLinks.whatsapp,
               target: Target.blank,
+              attributes: const {'rel': 'noopener noreferrer'},
               classes: 'btn-primary',
               [
                 .text(' Start for Free'),

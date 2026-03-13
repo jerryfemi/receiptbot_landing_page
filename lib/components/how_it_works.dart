@@ -127,7 +127,7 @@ class HowItWorks extends StatelessComponent {
         img(
           src: 'images/$filename',
           classes: 'step-video',
-          attributes: {'alt': title},
+          attributes: {'alt': title, 'loading': 'lazy'},
         ),
       ]),
     ]);

@@ -14,7 +14,7 @@ class Features extends StatelessComponent {
       icon: '📈',
       title: 'Sales Stats',
       desc:
-          'Get instant daily, monthly, and yearly sales reports. Track your business growth directly in WhatsApp chat.',
+          'Get instant weekly, monthly, and yearly sales reports. Track your business growth directly in WhatsApp chat.',
     ),
     (
       icon: '📄',

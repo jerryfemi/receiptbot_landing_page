@@ -31,6 +31,7 @@ class Showcase extends StatelessComponent {
                     src: item.img,
                     alt: item.caption,
                     classes: 'showcase-img',
+                    attributes: {'loading': 'lazy'},
                   ),
                 ]),
                 p(classes: 'frame-caption', [.text(item.caption)]),

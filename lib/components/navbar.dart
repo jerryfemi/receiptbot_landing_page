@@ -28,6 +28,7 @@ class Navbar extends StatelessComponent {
         a(
           href: AppLinks.whatsapp,
           target: Target.blank,
+          attributes: const {'rel': 'noopener noreferrer'},
           classes: 'btn-primary nav-cta',
           [.text('Get Started →')],
         ),

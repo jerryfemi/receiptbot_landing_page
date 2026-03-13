@@ -25,29 +25,10 @@ void main() {
         css.import('styles.css'),
       ],
       head: [
+        // Load fonts efficiently
+        link(href: 'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap', rel: 'stylesheet'),
         // Scroll reveal + navbar shadow on scroll
-        Component.element(
-          tag: 'script',
-          children: [
-            Component.text(r'''document.addEventListener('DOMContentLoaded', function() {
-  var reveals = document.querySelectorAll('.reveal');
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) e.target.classList.add('visible');
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(function(el) { io.observe(el); });
-
-  var nav = document.querySelector('.navbar');
-  if (nav) {
-    window.addEventListener('scroll', function() {
-      nav.style.boxShadow = window.scrollY > 40
-        ? '0 4px 40px rgba(0,0,0,0.5)' : 'none';
-    });
-  }
-});'''),
-          ],
-        ),
+        script(src: 'app.js', attributes: {'defer': ''}),
       ],
       body: App(),
     ),

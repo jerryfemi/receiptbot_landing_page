@@ -22,13 +22,14 @@ class About extends StatelessComponent {
             .text(
               "WhatsApp is already on everyone's phone. Remi lives there. "
               "No download, no account — just send a receipt and get a PDF. "
-              "AI does the heavy lifting, you keep the clean records.",
+              "Remi does the heavy lifting, you keep the clean records.",
             ),
           ]),
           div(classes: 'about-values', [
             _value('🧾', 'No paper trail left behind'),
             _value('📲', 'Lives in WhatsApp — no new app'),
             _value('🌍', 'Professional records, zero friction'),
+            _value('📊', 'Weekly, monthly & yearly sales insights'),
           ]),
         ]),
         div(classes: 'about-visual reveal', [

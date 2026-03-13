@@ -24,6 +24,7 @@ class Footer extends StatelessComponent {
           a(
             href: AppLinks.whatsapp,
             target: Target.blank,
+            attributes: const {'rel': 'noopener noreferrer'},
             classes: 'btn-primary footer-cta',
             [.text('Start for Free →')],
           ),
