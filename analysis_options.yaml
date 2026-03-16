@@ -14,21 +14,9 @@
 include: package:lints/recommended.yaml
 
 analyzer:
-  errors:
-    prefer_html_components: ignore
 #   exclude:
 #     - path/to/excluded/files/**
 
-# Jaspr has a custom analyzer plugin 'jaspr_lints', which is enabled here.
-#
-# You can toggle Jaspr specific lint rules in the 'diagnostics' section below.
-plugins:
-  jaspr_lints:
-    version: ^0.6.0
-    diagnostics:
-      prefer_html_components: true
-      sort_children_last: true
-      styles_ordering: true
 
 # Uncomment the following section to enable or disable additional rules.
 

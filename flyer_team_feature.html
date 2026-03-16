@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remi Promo Flyer - Team Member Access</title>
+    <!-- Tailwind via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bgDark: '#0A0F1E',
+                        bgCard: '#111827',
+                        accent: '#00D4A1',
+                        textPrimary: '#F1F5F9',
+                        textSecondary: '#94A3B8',
+                        textMuted: '#64748B',
+                        borderStroke: 'rgba(255,255,255,0.08)',
+                    },
+                    fontFamily: {
+                        heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Essential Remi Utilities */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0F1E;
+            color: #F1F5F9;
+            /* Creating the exact 1080x1080 square for social */
+            width: 1080px;
+            height: 1080px;
+            position: relative;
+            overflow: hidden;
+            background-image: radial-gradient(ellipse at 50% 0%, rgba(0, 212, 161, 0.15) 0%, transparent 60%);
+        }
+
+        .glass-card {
+            background: #111827;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+        }
+
+        .accent-glow {
+            color: #00D4A1;
+            text-shadow: 0 0 20px rgba(0, 212, 161, 0.4);
+        }
+
+        /* The placeholder dashed boxes for Figma */
+        .image-placeholder {
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 44px; /* Phone shape */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748B;
+            font-weight: 500;
+        }
+
+        .floating-tag {
+            background: rgba(17, 24, 39, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            backdrop-filter: blur(16px);
+            border-radius: 20px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .floating-tag:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 2px;
+            background: rgba(0, 212, 161, 0.5);
+            z-index: -1;
+        }
+        
+        .floating-tag.left-tag:after {
+            right: -30px;
+        }
+        
+        .floating-tag.right-tag:after {
+            left: -30px;
+        }
+
+        .accent-icon {
+            background: rgba(0, 212, 161, 0.12);
+            color: #00D4A1;
+            padding: 12px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col p-[60px] items-center">
+
+    <!-- Top Headline -->
+    <header class="flex flex-col items-center text-center mt-6 z-20 w-full">
+        <h2
+            class="font-heading font-extrabold text-[28px] tracking-tight mb-4 uppercase tracking-widest text-accent">
+            Feature Spotlight
+        </h2>
+
+        <h1 class="font-heading font-extrabold text-[72px] leading-[1.05] tracking-tight max-w-[900px]">
+            <span class="accent-glow">Team Member</span> Access
+        </h1>
+        <p class="text-textSecondary text-[22px] mt-6 max-w-[700px] font-medium leading-relaxed">
+            Let your staff generate receipts for customers, all synced to one single business account.
+        </p>
+    </header>
+
+    <!-- Main Visual Area (Phone Mockup + Tags) -->
+    <main class="flex-1 flex items-center justify-center w-full relative mt-16 mb-8">
+
+        <!-- Center: Phone Mockup Placeholder -->
+        <div class="image-placeholder w-[360px] h-[740px] shadow-[0_30px_80px_rgba(0,0,0,0.5)] relative z-10 glass-card">
+            <span class="text-xl">DROP 'PHONE_UI.PNG' HERE</span>
+
+            <!-- Left Tag 1 -->
+            <div class="absolute top-[18%] left-tag floating-tag z-20 transform -rotate-2 w-max" style="right: calc(100% + 20px);">
+                <div class="accent-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <div class="flex flex-col text-left">
+                    <span class="text-[14px] text-textSecondary font-semibold uppercase tracking-wider mb-0.5">Invite effortlessly</span>
+                    <span class="text-[20px] text-white font-heading font-bold">Multiple Staff</span>
+                </div>
+            </div>
+
+            <!-- Right Tag 1 -->
+            <div class="absolute top-[38%] right-tag floating-tag z-20 transform rotate-2 w-max" style="left: calc(100% + 20px);">
+                <div class="accent-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="9" x2="9" y1="21" y2="9"/></svg>
+                </div>
+                <div class="flex flex-col text-left">
+                    <span class="text-[14px] text-textSecondary font-semibold uppercase tracking-wider mb-0.5">All in one place</span>
+                    <span class="text-[20px] text-white font-heading font-bold">Shared Dashboard</span>
+                </div>
+            </div>
+
+            <!-- Left Tag 2 -->
+            <div class="absolute top-[58%] left-tag floating-tag z-20 transform rotate-1 w-max" style="right: calc(100% + 20px);">
+                <div class="accent-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                </div>
+                <div class="flex flex-col text-left">
+                    <span class="text-[14px] text-textSecondary font-semibold uppercase tracking-wider mb-0.5">Empower your team</span>
+                    <span class="text-[20px] text-white font-heading font-bold">Receipts On-the-Go</span>
+                </div>
+            </div>
+
+            <!-- Right Tag 2 -->
+            <div class="absolute top-[75%] right-tag floating-tag z-20 transform -rotate-2 w-max" style="left: calc(100% + 20px);">
+                <div class="accent-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                </div>
+                <div class="flex flex-col text-left">
+                    <span class="text-[14px] text-textSecondary font-semibold uppercase tracking-wider mb-0.5">Keep track</span>
+                    <span class="text-[20px] text-white font-heading font-bold">Monitor Sales</span>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
