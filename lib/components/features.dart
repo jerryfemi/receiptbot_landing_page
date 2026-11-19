@@ -4,59 +4,25 @@ import 'package:jaspr/jaspr.dart';
 class Features extends StatelessComponent {
   const Features({super.key});
 
-  static const _features = [
-    (
-      icon: '💬',
-      title: 'Chat Your Expenses',
-      desc: 'Type the sale details naturally — "Sold 2 laptops to John for \$800" — and get a PDF. No forms, no apps.',
-    ),
-    (
-      icon: '📈',
-      title: 'Sales Stats',
-      desc:
-          'Get instant weekly, monthly, and yearly sales reports. Track your business growth directly in WhatsApp chat.',
-    ),
-    (
-      icon: '📄',
-      title: 'Beautiful PDF Invoices',
-      desc:
-          'Choose from 4 professional layouts. Classic, Modern, Minimal, or Signature — all branded to your business.',
-    ),
-    (
-      icon: '🎨',
-      title: 'Your Brand, Your Design',
-      desc:
-          'Upload your logo, set your colours, add your bank details. Every receipt looks like it came from your company.',
-    ),
-    (
-      icon: '👥',
-      title: 'Advanced Settings & Team',
-      desc: 'Manage currency, team members, and business settings right from the chat menu.',
-    ),
-    (
-      icon: '⚡',
-      title: 'Instant Delivery',
-      desc: 'Your invoice is ready in seconds and delivered right back into the same WhatsApp conversation.',
-    ),
+  static const _items = [
+    ('Your brand on every page', 'Logo, address, phone and bank details, set once in Settings.'),
+    ('Invoices too', 'Due dates and where to pay, so customers know exactly what to send.'),
+    ('It checks before it sends', 'Missing price or customer? Remi asks first instead of guessing.'),
+    ('Your team can issue receipts', 'Add staff and their receipts come out under your business name.'),
+    ('Sales totals on request', 'Ask for this week, this month or this year and get the numbers in chat.'),
+    ('Any currency', 'Naira by default. Switch to cedis, dollars or anything else in Settings.'),
   ];
 
   @override
   Component build(BuildContext context) {
-    return section(id: 'features', classes: 'section features-section', [
-      div(classes: 'container', [
-        div(classes: 'section-header reveal', [
-          span(classes: 'section-label', [.text('What Remi Does')]),
-          h2(classes: 'section-title', [.text('Everything you need,\nnone of the hassle')]),
-          p(classes: 'section-sub center', [
-            .text('Six powerful features baked right into your WhatsApp chat.'),
-          ]),
-        ]),
-        div(classes: 'features-grid', [
-          for (final f in _features)
-            div(classes: 'feature-card reveal', [
-              div(classes: 'feature-icon', [.text(f.icon)]),
-              h3(classes: 'feature-title', [.text(f.title)]),
-              p(classes: 'feature-desc', [.text(f.desc)]),
+    return section(classes: 'band-white', [
+      div(classes: 'wrap section-pad', [
+        h2(classes: 'section-title section-title-sm', [.text('It does the boring parts properly.')]),
+        div(classes: 'feature-grid', [
+          for (final (title, text) in _items)
+            div(classes: 'feature', [
+              h3(classes: 'feature-title', [.text(title)]),
+              p(classes: 'feature-text', [.text(text)]),
             ]),
         ]),
       ]),
