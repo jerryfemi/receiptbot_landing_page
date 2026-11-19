@@ -268,6 +268,15 @@ a:hover { color: var(--blue-dark); }
 .bill--pro .bill-name, .bill--pro .bill-total { color: var(--blue); }
 .bill-tagline { text-align: center; color: var(--muted); font-size: 12px; }
 .bill-total { font-size: 28px; }
+.bill-total-wrap { display: flex; align-items: baseline; gap: 10px; }
+.bill-was {
+  font-size: 15px; font-weight: 400; color: var(--muted);
+  text-decoration: line-through; text-decoration-thickness: 1.5px;
+}
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
 .bill-note { text-align: right; color: var(--muted); font-size: 12px; }
 .bill-btn { margin-top: 10px; font-size: 16px; }
 
