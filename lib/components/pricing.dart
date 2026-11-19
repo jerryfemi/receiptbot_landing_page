@@ -37,6 +37,16 @@ class _PricingState extends State<Pricing> {
 
   String get _proPrice => '$_symbol${withCommas(_annual ? _yearly : _monthly)}';
 
+  bool get _earlyAccess => _naira && _prices.isEarlyAccess && _prices.spotsLeft > 0;
+
+  /// The normal price, crossed out next to the early-access one.
+  String? get _proWas {
+    if (!_earlyAccess) return null;
+    final regular = _annual ? _prices.regularAnnualNgn : _prices.regularMonthlyNgn;
+    final now = _annual ? _yearly : _monthly;
+    return regular > now ? '₦${withCommas(regular)}' : null;
+  }
+
   String get _proNote {
     if (!_annual) return 'PER MONTH';
     final saving = _monthly * 12 - _yearly;
@@ -50,7 +60,7 @@ class _PricingState extends State<Pricing> {
 
   @override
   Component build(BuildContext context) {
-    final showEarlyAccess = _naira && _prices.isEarlyAccess && _prices.spotsLeft > 0;
+    final showEarlyAccess = _earlyAccess;
     return section(id: 'pricing', classes: 'wrap section-pad pricing', [
       div(classes: 'pricing-head', [
         h2(classes: 'section-title', [.text("Here's the bill.")]),
@@ -71,6 +81,7 @@ class _PricingState extends State<Pricing> {
             ('VOICE NOTES', 'YES'),
           ],
           total: '${_symbol}0',
+          was: null,
           note: null,
           stamp: 'FREE',
           pro: false,
@@ -86,6 +97,7 @@ class _PricingState extends State<Pricing> {
             ('SALES TOTALS', 'YES'),
           ],
           total: _proPrice,
+          was: _proWas,
           note: _proNote,
           stamp: 'PAID',
           pro: true,
@@ -113,6 +125,7 @@ class _PricingState extends State<Pricing> {
     required String tagline,
     required List<(String, String)> lines,
     required String total,
+    required String? was,
     required String? note,
     required String stamp,
     required bool pro,
@@ -129,7 +142,14 @@ class _PricingState extends State<Pricing> {
         span(classes: 'slip-double', []),
         span(classes: 'slip-line slip-total', [
           span([.text('TOTAL')]),
-          span(classes: 'bill-total', [.text(total)]),
+          span(classes: 'bill-total-wrap', [
+            if (was != null)
+              span(classes: 'bill-was', [
+                span(classes: 'sr-only', [.text('Normally ')]),
+                .text(was),
+              ]),
+            span(classes: 'bill-total', [.text(total)]),
+          ]),
         ]),
         if (note != null) span(classes: 'bill-note', [.text(note)]),
         div(classes: 'slip-stamp-row', [
