@@ -1,7 +1,5 @@
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
-import '../services/pricing_service.dart';
-import 'region_detector.dart' if (dart.library.js_interop) 'region_detector_web.dart';
 
 class Faq extends StatefulComponent {
   const Faq({super.key});
@@ -10,96 +8,62 @@ class Faq extends StatefulComponent {
   State<Faq> createState() => _FaqState();
 }
 
+const _questions = [
+  (
+    'Do I need to download anything?',
+    'No. Remi lives in WhatsApp. Tap Start on WhatsApp or scan the code, say hello, and you are set up.',
+  ),
+  (
+    'Can it read handwriting or voice notes?',
+    'Yes. Send a photo of a handwritten sales note or record a voice note describing the sale. '
+        'Typing works too, the way you would say it to a friend.',
+  ),
+  (
+    'What if a receipt comes out wrong?',
+    'Tap Fix it under the receipt and say what to change, like "the price was 40k". Remi sends a '
+        'corrected copy. If something is missing before it sends, it asks you first.',
+  ),
+  (
+    'Is my business data shared with anyone?',
+    'No. Your sales are used to make your receipts and your own totals, and nothing else. '
+        'The privacy policy has the details.',
+  ),
+  (
+    'How do I pay for Pro, and can I cancel?',
+    'You upgrade from inside the chat. Pro runs until the end of the period you paid for, '
+        'and you can stop renewing any time.',
+  ),
+];
+
 class _FaqState extends State<Faq> {
-  int _open = -1;
-  final _pricingService = PricingService();
-  late final bool _isAfrican;
-
-  @override
-  void initState() {
-    super.initState();
-    _isAfrican = isAfricanRegion();
-    if (!_pricingService.loaded) {
-      _initPricing();
-    }
-  }
-
-  Future<void> _initPricing() async {
-    await _pricingService.fetchPricing();
-    if (!mounted) return;
-    setState(() {});
-  }
-
-  List<({String q, String a})> get _items {
-    final monthly = _isAfrican ? '₦${_pricingService.monthlyPriceNgn}' : '\$${_pricingService.monthlyPriceUsd}';
-    final annual = _isAfrican ? '₦${_pricingService.annualPriceNgn}' : '\$${_pricingService.annualPriceUsd}';
-    final proPrice = '$monthly/month or $annual/year';
-
-    return [
-      (
-        q: 'What is Remi?',
-        a: 'Remi is a WhatsApp bot that turns your text messages and receipt photos into professional PDF receipts & invoices — sent right back to you in chat.',
-      ),
-      (
-        q: 'How do I start using Remi?',
-        a: 'Tap "Get Started" or scan the QR code. This opens WhatsApp with Remi ready to go. No signup, no app install — just tell Remi what you sold to get started.',
-      ),
-      (
-        q: 'Does it only work with text messages?',
-        a: 'No! Remi can parse photos of handwritten receipts, but its primary strength is natural language. Just type "Sold 2 laptops to John for \$800" and Remi handles the rest.',
-      ),
-      (
-        q: 'What receipt types does Remi support?',
-        a: 'Remi works with physical receipt photos (JPG, PNG), handwritten notes, and plain text. If it has a total and a description, Remi can extract the data.',
-      ),
-      (
-        q: 'Is my data stored anywhere?',
-        a: 'Remi processes your data to generate the PDF but does not sell or share it with third parties. Your business history stays private to your account.',
-      ),
-      (
-        q: "What's included in Pro?",
-        a: 'The Free plan gives you 5 receipts per month. Pro unlocks unlimited receipts, all 4 premium PDF layouts, custom business logos, team member access, Sales Insights and priority support.',
-      ),
-      (
-        q: 'How much does it cost?',
-        a: 'Remi starts free. Pro is $proPrice. Localized pricing and early access deals are automatically handled at checkout.',
-      ),
-      (
-        q: 'How do I cancel my subscription?',
-        a: 'You can cancel anytime by messaging Remi in WhatsApp with the command "cancel subscription". Your Pro access remains until the end of your billing period.',
-      ),
-    ];
-  }
+  int _open = 0;
 
   @override
   Component build(BuildContext context) {
-    return section(id: 'faq', classes: 'section faq-section', [
-      div(classes: 'container faq-container', [
-        div(classes: 'section-header reveal', [
-          span(classes: 'section-label', [.text('FAQ')]),
-          h2(classes: 'section-title', [.text('Common questions,\nhonest answers')]),
-        ]),
+    return section(id: 'faq', classes: 'band-white', [
+      div(classes: 'wrap-narrow section-pad', [
+        h2(classes: 'section-title section-title-sm', [.text('Questions people ask.')]),
         div(classes: 'faq-list', [
-          for (int i = 0; i < _items.length; i++) _buildItem(i),
+          for (var i = 0; i < _questions.length; i++) _item(i),
         ]),
       ]),
     ]);
   }
 
-  Component _buildItem(int index) {
-    final isOpen = _open == index;
-    return div(classes: 'faq-item${isOpen ? ' faq-item--open' : ''}', [
+  Component _item(int i) {
+    final (question, answer) = _questions[i];
+    final open = _open == i;
+    return div(classes: 'faq-item', [
       button(
-        classes: 'faq-question',
-        onClick: () => setState(() => _open = isOpen ? -1 : index),
+        classes: 'faq-q',
+        attributes: {'type': 'button', 'aria-expanded': '$open'},
+        onClick: () => setState(() => _open = open ? -1 : i),
         [
-          span([.text(_items[index].q)]),
-          span(classes: 'faq-chevron', [.text(isOpen ? '−' : '+')]),
+          span([.text(question)]),
+          span(classes: 'faq-sign', attributes: const {'aria-hidden': 'true'}, [.text(open ? '−' : '+')]),
         ],
       ),
-      div(classes: 'faq-answer${isOpen ? ' faq-answer--open' : ''}', [
-        p([.text(_items[index].a)]),
-      ]),
+      if (open) p(classes: 'faq-a', [.text(answer)]),
     ]);
   }
 }
