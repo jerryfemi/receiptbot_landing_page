@@ -23,6 +23,9 @@ class _PricingState extends State<Pricing> {
   void initState() {
     super.initState();
     _naira = isAfricanRegion();
+    // Live prices are fetched in the visitor's browser only. The pre-render
+    // on the server uses the fallback prices and can't refresh itself.
+    if (!kIsWeb) return;
     _prices.fetch().then((_) {
       if (mounted) setState(() {});
     });
