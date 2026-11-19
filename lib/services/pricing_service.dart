@@ -1,37 +1,47 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
+import '../constants/theme.dart';
+
+/// Live prices from the bot's /api/pricing endpoint, with the bot's own
+/// prices as fallbacks so the page never shows an empty price.
 class PricingService {
   static final PricingService _instance = PricingService._internal();
   factory PricingService() => _instance;
   PricingService._internal();
 
-  bool _loaded = false;
-  bool get loaded => _loaded;
-
+  bool loaded = false;
   bool isEarlyAccess = false;
   int spotsLeft = 0;
-  int monthlyPriceNgn = 3500;
-  int annualPriceNgn = 35000;
-  int monthlyPriceUsd = 18;
-  int annualPriceUsd = 200;
+  int monthlyNgn = 3500;
+  int annualNgn = 35000;
+  int monthlyUsd = 18;
+  int annualUsd = 200;
 
-  Future<void> fetchPricing() async {
+  Future<void> fetch() async {
+    if (loaded) return;
     try {
-      final response = await http.get(Uri.parse('https://pennywise-bot-1077178245946.us-central1.run.app/api/pricing'));
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        isEarlyAccess = data['isEarlyAccessActive'] ?? false;
-        spotsLeft = data['spotsLeft'] ?? 0;
-        monthlyPriceNgn = data['monthlyPriceNgn'] ?? 3500;
-        annualPriceNgn = data['annualPriceNgn'] ?? 35000;
-        monthlyPriceUsd = data['monthlyPriceUsd'] ?? 18;
-        annualPriceUsd = data['annualPriceUsd'] ?? 200;
-        _loaded = true;
-      }
+      final response = await http
+          .get(Uri.parse(AppLinks.pricingApi))
+          .timeout(const Duration(seconds: 8));
+      if (response.statusCode != 200) return;
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      isEarlyAccess = data['isEarlyAccessActive'] as bool? ?? false;
+      spotsLeft = data['spotsLeft'] as int? ?? 0;
+      monthlyNgn = data['monthlyPriceNgn'] as int? ?? monthlyNgn;
+      annualNgn = data['annualPriceNgn'] as int? ?? annualNgn;
+      monthlyUsd = data['monthlyPriceUsd'] as int? ?? monthlyUsd;
+      annualUsd = data['annualPriceUsd'] as int? ?? annualUsd;
+      loaded = true;
     } catch (_) {
-      // Keep defaults
+      // Keep the fallback prices.
     }
   }
 }
+
+/// 35000 -> "35,000"
+String withCommas(int value) => value.toString().replaceAllMapped(
+      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+      (m) => '${m[1]},',
+    );
