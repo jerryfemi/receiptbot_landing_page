@@ -1,11 +1,11 @@
 {
   "projects": {
-    "default": "invoicemaker-b3876"
+    "default": "receiptbot-2f0e8"
   },
   "targets": {
-    "invoicemaker-b3876": {
+    "receiptbot-2f0e8": {
       "hosting": {
-        "landingpage": [
+        "landing": [
           "remireceiptbot"
         ]
       }
