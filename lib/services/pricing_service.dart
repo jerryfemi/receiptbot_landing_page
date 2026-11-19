@@ -19,6 +19,10 @@ class PricingService {
   int monthlyUsd = 18;
   int annualUsd = 200;
 
+  /// The normal naira prices, shown crossed out during early access.
+  int regularMonthlyNgn = 3500;
+  int regularAnnualNgn = 35000;
+
   Future<void> fetch() async {
     if (loaded) return;
     try {
@@ -33,6 +37,8 @@ class PricingService {
       annualNgn = data['annualPriceNgn'] as int? ?? annualNgn;
       monthlyUsd = data['monthlyPriceUsd'] as int? ?? monthlyUsd;
       annualUsd = data['annualPriceUsd'] as int? ?? annualUsd;
+      regularMonthlyNgn = data['regularMonthlyPriceNgn'] as int? ?? regularMonthlyNgn;
+      regularAnnualNgn = data['regularAnnualPriceNgn'] as int? ?? regularAnnualNgn;
       loaded = true;
     } catch (_) {
       // Keep the fallback prices.
