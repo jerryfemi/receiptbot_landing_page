@@ -16,8 +16,8 @@ class PricingService {
   int spotsLeft = 0;
   int monthlyNgn = 3500;
   int annualNgn = 35000;
-  int monthlyUsd = 18;
-  int annualUsd = 200;
+  int monthlyUsd = 15;
+  int annualUsd = 150;
 
   /// The normal naira prices, shown crossed out during early access.
   int regularMonthlyNgn = 3500;
