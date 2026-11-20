@@ -8,7 +8,7 @@ class Features extends StatelessComponent {
     ('Your brand on every page', 'Logo, address, phone and bank details, set once in Settings.'),
     ('Invoices too', 'Due dates and where to pay, so customers know exactly what to send.'),
     ('It checks before it sends', 'Missing price or customer? Remi asks first instead of guessing.'),
-    ('Your team can issue receipts', 'Add staff and their receipts come out under your business name.'),
+    ('Your team can issue receipts', 'Add staff with an invite code. Their receipts carry your business name, and you see what each person sold.'),
     ('Sales totals on request', 'Ask for this week, this month or this year and get the numbers in chat.'),
     ('Any currency', 'Naira by default. Switch to cedis, dollars or anything else in Settings.'),
   ];
