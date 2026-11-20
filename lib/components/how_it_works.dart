@@ -37,17 +37,10 @@ class HowItWorks extends StatelessComponent {
                   .text("Type it the way you'd say it, snap a handwritten note, or "
                       'just send a voice note.'),
                 ]),
-                div(classes: 'examples', [
-                  span(classes: 'example mono', [.text('sold 3 shirts to Bola, 7k each')]),
-                  span(classes: 'example', [
-                    img(src: 'images/icons/mic.svg', alt: '', attributes: const {'width': '16', 'height': '16'}),
-                    img(
-                      src: 'images/icons/wave.svg',
-                      alt: 'A voice note',
-                      attributes: const {'width': '96', 'height': '18'},
-                    ),
-                    span(classes: 'mono muted-small', [.text('0:06')]),
-                  ]),
+                div(classes: 'ways', [
+                  _way('chat-typed.webp', 'Type it', 'A typed message about selling Indomie to Chidi, and the PDF Remi sent back'),
+                  _way('chat-voice.webp', 'Say it', 'A voice note, and the PDF receipt for Tunde that Remi sent back'),
+                  _way('chat-photo.webp', 'Snap it', "A photo of Mama Ngozi's handwritten list, and the PDF Remi sent back"),
                 ]),
               ],
             ),
@@ -65,6 +58,13 @@ class HowItWorks extends StatelessComponent {
           div(classes: 'zig-bottom', []),
         ]),
       ]),
+    ]);
+  }
+
+  Component _way(String file, String label, String alt) {
+    return figure(classes: 'way', [
+      img(src: 'images/real/$file', alt: alt, attributes: const {'loading': 'lazy'}),
+      figcaption([.text(label)]),
     ]);
   }
 
