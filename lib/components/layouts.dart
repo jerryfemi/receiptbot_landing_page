@@ -1,8 +1,11 @@
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 
+import 'swipe.dart' if (dart.library.js_interop) 'swipe_web.dart';
+
 /// "Pick your paper": the four receipt layouts fanned out on a desk.
-/// Choosing one from the list brings it to the front.
+/// Choosing one from the list, or swiping across the desk, brings it to the
+/// front.
 class Layouts extends StatefulComponent {
   const Layouts({super.key});
 
@@ -31,6 +34,23 @@ const _fan = [(-62, 70, -9), (-21, 50, -3), (21, 50, 3), (62, 70, 9)];
 class _LayoutsState extends State<Layouts> {
   int _picked = 0;
 
+  /// Where a swipe on the desk started, or null when none is in progress.
+  double? _swipeStart;
+
+  /// How far a finger or mouse must travel sideways to count as a swipe.
+  static const _swipeDistance = 40;
+
+  void _endSwipe(Object event) {
+    final start = _swipeStart;
+    final end = pointerX(event);
+    _swipeStart = null;
+    if (start == null || end == null) return;
+    final moved = end - start;
+    if (moved.abs() < _swipeDistance) return;
+    // Swipe left for the next paper, right for the previous; it wraps round.
+    setState(() => _picked = (_picked + (moved < 0 ? 1 : -1)) % _papers.length);
+  }
+
   @override
   Component build(BuildContext context) {
     return section(id: 'layouts', classes: 'wrap split split-center section-pad', [
@@ -45,9 +65,17 @@ class _LayoutsState extends State<Layouts> {
         ]),
       ]),
       div(classes: 'split-main', [
-        div(classes: 'desk', [
-          for (var i = 0; i < _papers.length; i++) _paperImage(i),
-        ]),
+        div(
+          classes: 'desk',
+          events: {
+            'pointerdown': (event) => _swipeStart = pointerX(event),
+            'pointerup': _endSwipe,
+            'pointercancel': (_) => _swipeStart = null,
+          },
+          [
+            for (var i = 0; i < _papers.length; i++) _paperImage(i),
+          ],
+        ),
       ]),
     ]);
   }
@@ -82,6 +110,7 @@ class _LayoutsState extends State<Layouts> {
       classes: 'paper${picked ? ' paper--picked' : ''}',
       attributes: {
         'loading': 'lazy',
+        'draggable': 'false',
         'style': 'transform: $transform; z-index: ${picked ? 10 : i + 1}',
       },
     );
