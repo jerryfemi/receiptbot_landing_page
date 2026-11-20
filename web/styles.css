@@ -191,6 +191,10 @@ a:hover { color: var(--blue-dark); }
 .paper-plan { font-family: var(--mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
 
 .desk { position: relative; height: 600px; background: var(--desk); border-radius: 28px; overflow: hidden; }
+/* Vertical scrolling stays with the page; sideways drags swipe the papers. */
+.desk { touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+.desk:active { cursor: grabbing; }
+.desk img { -webkit-user-drag: none; }
 .paper {
   position: absolute; left: 50%; top: 36px; width: 46%; max-width: 320px; height: auto;
   border-radius: 4px; box-shadow: 0 12px 30px -16px rgba(20, 20, 24, 0.35);
